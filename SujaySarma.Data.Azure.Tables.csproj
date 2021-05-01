@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>This is the .Net 5.0 version of the SujaySarma.Sdk.DataSources.AzureTables library. This version is code and CLR optimized for .Net 5.0. 
+
+If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to this library is not a "simple upgrade". You will need to change imported namespaces as well as the object references in some places. There are also small differences in the way some functions work. We also have completely new functionality starting in this library!</Description>
+    <Copyright>(c) 2021 Sujay V Sarma. All Rights Reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>orm,data,azure,azure tables,cosmosdb,sql server</PackageTags>
+    <PackageReleaseNotes>This is the .Net 5.0 version of the SujaySarma.Sdk.DataSources.AzureTables library. This version is code and CLR optimized for .Net 5.0. 
+
+If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to this library is not a "simple upgrade". You will need to change imported namespaces as well as the object references in some places. There are also small differences in the way some functions work. We also have completely new functionality starting in this library!</PackageReleaseNotes>
+    <Version>5.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants></DefineConstants>
+    <Optimize>true</Optimize>
+    <DocumentationFile></DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Sujay\Src\SDK\SujaySarma.Data.Azure.Tables\SujaySarma.Data.Azure.Tables.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Batch\" />
+  </ItemGroup>
+
+</Project>
