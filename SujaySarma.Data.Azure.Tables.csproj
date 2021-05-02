@@ -45,8 +45,4 @@ If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to t
     <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Batch\" />
-  </ItemGroup>
-
 </Project>

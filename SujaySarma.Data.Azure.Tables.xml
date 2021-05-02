@@ -73,6 +73,287 @@
             Marks the property or field as the Timestamp value for the table.
             </summary>
         </member>
+        <member name="T:SujaySarma.Data.Azure.Tables.AzureStorageConnection">
+            <summary>
+            Represents a connection to an Azure Storage account. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.PersistSecurityInfo">
+            <summary>
+            Flag indicating if security information should be made available to callers. Default is FALSE.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Credential">
+            <summary>
+            Credential used to establish connection. If PersistSecurityInfo is FALSE, then the 
+            Getter will return NULL.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.StorageCredentials">
+            <summary>
+            Transform the stored credential to a Cosmos SDK storage credential for use with the underlying connection.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ConnectionString">
+            <summary>
+            The original connection string used
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.IsUsingDevelopmentStorage">
+            <summary>
+            Returns if connection is to a Development storage system
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.TableName">
+            <summary>
+            The table the connection is currently referencing. Will be NULL if <see cref="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Open(System.String,System.Boolean)"/> has not been used.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageConnection.AccountUri">
+            <summary>
+            Uri to the Table service (CosmosDB has the same scheme)
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Open(System.String,System.Boolean)">
+            <summary>
+            Open a connection to the specified table
+            </summary>
+            <param name="tableName">Name of the table to connect to</param>
+            <param name="useIsDeleted">Set FALSE to disable use of IsDeleted column</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Open``1">
+            <summary>
+            Open a connection to the specified object
+            </summary>
+            <typeparam name="T">Type of business object</typeparam>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Close">
+            <summary>
+            Close the currently open connection
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ChangeTable(System.String,System.Boolean)">
+            <summary>
+            Change connection to a different table
+            </summary>
+            <param name="tableName">Name of table to connect to</param>
+            <param name="useIsDeleted">Set FALSE to disable use of IsDeleted column</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ChangeTable``1">
+            <summary>
+            Change table to the new object
+            </summary>
+            <typeparam name="T">Type of business object</typeparam>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.CreateCommand">
+            <summary>
+            Creates a storage tables command instance
+            </summary>
+            <returns>Instance of AzureStorageTablesCommand</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ExecuteQuery(Microsoft.Azure.Cosmos.Table.TableQuery{SujaySarma.Data.Azure.Tables.Internal.CosmosDB.TableEntity})">
+            <summary>
+            Execute the query against the open table connection
+            </summary>
+            <param name="query">TableQuery to execute</param>
+            <returns>Enumerable of TableEntity</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ExecuteAsync(Microsoft.Azure.Cosmos.Table.TableOperation)">
+            <summary>
+            Execute the query against the open table connection
+            </summary>
+            <param name="operation">TableQuery to execute</param>
+            <returns>Enumerable of TableEntity</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ExecuteBatchAsync(Microsoft.Azure.Cosmos.Table.TableBatchOperation)">
+            <summary>
+            Execute a batch asynchronously
+            </summary>
+            <param name="batchOperation">TableBatchOperation to execute async</param>
+            <returns>Results of the batch operation</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.ListTables">
+            <summary>
+            Enumerates all tables in the current storage connection
+            </summary>
+            <returns>IEnumerable of CloudTables</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.DropTable">
+            <summary>
+            Drop the current table
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.CreateTable">
+            <summary>
+            Create the current table
+            </summary>
+            <returns>True if table was created</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.CheckTableExists">
+            <summary>
+            Check if the current table exists
+            </summary>
+            <returns>True if table exists</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.#ctor">
+            <summary>
+            Instantiate the connection with defaults
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.#ctor(System.String)">
+            <summary>
+            Instantiate the connection with the provided connection string
+            </summary>
+            <param name="connectionString">Connection string to use to connect to the Azure Storage</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.#ctor(System.String,System.String)">
+            <summary>
+            Instantiate the connection using the provided information
+            </summary>
+            <param name="accountName">Name of the Azure Storage account to connect to</param>
+            <param name="accountKey">AccountKey of the Azure Storage account to authenticate to</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageConnection.Dispose">
+            <summary>
+            Dispose the connection
+            </summary>
+        </member>
+        <member name="T:SujaySarma.Data.Azure.Tables.AzureStorageCredential">
+            <summary>
+            Represents a credential used to connect to Azure Storage
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageCredential.AccountName">
+            <summary>
+            The AccountName used to connect
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageCredential.AccountSecret">
+            <summary>
+            The account Secret or Key used to authenticate
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageCredential.#ctor">
+            <summary>
+            Initialize using defaults (Development storage settings are used)
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageCredential.#ctor(System.String,System.String)">
+            <summary>
+            Initialize using the provided values
+            </summary>
+            <param name="accountName">AccountName used to connect</param>
+            <param name="accountKey">AccountKey or secret used to authenticate</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageCredential.FromConnectionString(System.String)">
+            <summary>
+            Returns an instance populated with values found in a connection string
+            </summary>
+            <param name="connectionString">Connectionstring to process</param>
+            <returns>AzureStorageCredential</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageCredential.ToString">
+            <summary>
+            Returns a connectionstring compatible serialization of the values
+            </summary>
+            <returns>String containing the AccountName and Secret</returns>
+        </member>
+        <member name="T:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand">
+            <summary>
+            The class that provides all the functionality to interact with Azure Storage Table service.
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.Connection">
+            <summary>
+            Reference to the Azure Storage Connection class
+            </summary>
+        </member>
+        <member name="P:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.UsesIsDeleted">
+            <summary>
+            Set this to FALSE to indicate that this table does NOT have an IsDeleted column. 
+            If this is set and the table does not have the field, then SELECT queries will FAIL.
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ExecuteQuery(SujaySarma.Data.Azure.Tables.Commands.Query)">
+            <summary>
+            Execute a query that returns data from the Azure Storage Table
+            </summary>
+            <param name="query">Query to execute</param>
+            <returns>IEnumerable rows</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ExecuteQuery``1(SujaySarma.Data.Azure.Tables.Commands.Query)">
+            <summary>
+            Execute a query that returns data from the Azure Storage Table
+            </summary>
+            <typeparam name="T">Type of business object</typeparam>
+            <param name="query">Query to execute</param>
+            <returns>IEnumerable of business object instances</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ExecuteNonQuery``1(SujaySarma.Data.Azure.Tables.Commands.Crud{``0})">
+            <summary>
+            Execute a CRUD operation
+            </summary>
+            <typeparam name="T">Type of business object</typeparam>
+            <param name="operation">The operation to execute (as an SDK Crud operation)</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ExecuteNonQuery(Microsoft.Azure.Cosmos.Table.TableBatchOperation)">
+            <summary>
+            Execute a CRUD operation
+            </summary>
+            <param name="operation">The operation to execute (as Azure TableBatchOperation)</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ExecuteNonQuery(Microsoft.Azure.Cosmos.Table.TableOperation)">
+            <summary>
+            Execute a CRUD operation
+            </summary>
+            <param name="operation">The operation to execute (as Azure TableOperation)</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ListTables">
+            <summary>
+            Returns a list of tables
+            </summary>
+            <returns>IEnumerable of names of the tables present</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.Drop">
+            <summary>
+            Drops the current table
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.Create">
+            <summary>
+            Creates the table if it does not exist
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.Exists">
+            <summary>
+            Returns if the current table exists
+            </summary>
+            <returns>True if table exists</returns>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ClearPartition(System.String)">
+            <summary>
+            Clear all data for a particular PartitionKey value
+            </summary>
+            <param name="partitionKey">The PartitionKey to clear data for</param>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.ClearTable">
+            <summary>
+            Delete all the rows from the table
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.Dispose">
+            <summary>
+            Dispose the datasource. Does not do anything, this is only so that we can use 
+            this class in a 'using' statement like other datasource classes
+            </summary>
+        </member>
+        <member name="M:SujaySarma.Data.Azure.Tables.AzureStorageTablesCommand.#ctor(SujaySarma.Data.Azure.Tables.AzureStorageConnection,System.Boolean)">
+            <summary>
+            Initializes using the provided connection
+            </summary>
+            <param name="connection">Storage connection to initialize with</param>
+            <param name="usesIsDeleted">Set this to FALSE to indicate that this table does NOT have an IsDeleted column.</param>
+        </member>
         <member name="T:SujaySarma.Data.Azure.Tables.Commands.Crud`1">
             <summary>
             Defines a CRUD (Create, Replace, Update, Delete) operation on the Azure Storage Table
@@ -198,181 +479,6 @@
             Returns the equivalent TableQuery
             </summary>
             <returns>TableQuery to use with the ExecuteQuery call</returns>
-        </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.ConnectionManager">
-            <summary>
-            Provides pooled connections to Azure Storage Tables
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.ConnectionManager.GetOrAdd``1">
-            <summary>
-            Gets a connection to an Azure Storage Table
-            </summary>
-            <typeparam name="T">Type of business object to fetch a connection for</typeparam>
-            <returns>A DataSource connection</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.ConnectionManager.GetTableName``1">
-            <summary>
-            Get the tablename for the provided object
-            </summary>
-            <typeparam name="T">Type of business object</typeparam>
-            <returns>Name of the associated Azure Storage table</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.ConnectionManager.Clear">
-            <summary>
-            Clears all cached connections
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.ConnectionManager.Initialize(System.String)">
-            <summary>
-            Initialize the connection string
-            </summary>
-            <param name="connectionString">Connection string to use for further connections</param>
-        </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.DataSource">
-            <summary>
-            The class that provides all the functionality to interact with Azure Storage Table service.
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.DataSource.StorageAccount">
-            <summary>
-            Reference to the Azure Storage Account class
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.DataSource.UsesIsDeleted">
-            <summary>
-            Set this to FALSE to indicate that this table does NOT have an IsDeleted column. 
-            If this is set and the table does not have the field, then SELECT queries will FAIL.
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.DataSource.CurrentTableName">
-            <summary>
-            Name of the current table
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ExecuteQuery(SujaySarma.Data.Azure.Tables.Commands.Query)">
-            <summary>
-            Execute a query that returns data from the Azure Storage Table
-            </summary>
-            <param name="query">Query to execute</param>
-            <returns>IEnumerable rows</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ExecuteQuery``1(SujaySarma.Data.Azure.Tables.Commands.Query)">
-            <summary>
-            Execute a query that returns data from the Azure Storage Table
-            </summary>
-            <typeparam name="T">Type of business object</typeparam>
-            <param name="query">Query to execute</param>
-            <returns>IEnumerable of business object instances</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ExecuteNonQuery``1(SujaySarma.Data.Azure.Tables.Commands.Crud{``0})">
-            <summary>
-            Execute a CRUD operation
-            </summary>
-            <typeparam name="T">Type of business object</typeparam>
-            <param name="operation">The operation to execute (as an SDK Crud operation)</param>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ExecuteNonQuery(Microsoft.Azure.Cosmos.Table.TableBatchOperation)">
-            <summary>
-            Execute a CRUD operation
-            </summary>
-            <param name="operation">The operation to execute (as Azure TableBatchOperation)</param>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ExecuteNonQuery(Microsoft.Azure.Cosmos.Table.TableOperation)">
-            <summary>
-            Execute a CRUD operation
-            </summary>
-            <param name="operation">The operation to execute (as Azure TableOperation)</param>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ListTables">
-            <summary>
-            Returns a list of tables
-            </summary>
-            <returns>IEnumerable of names of the tables present</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.Drop">
-            <summary>
-            Drops the current table
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.Create">
-            <summary>
-            Creates the table if it does not exist
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.Exists">
-            <summary>
-            Returns if the current table exists
-            </summary>
-            <returns>True if table exists</returns>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.ClearPartition(System.String)">
-            <summary>
-            Clear all data for a particular PartitionKey value
-            </summary>
-            <param name="partitionKey">The PartitionKey to clear data for</param>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.DeleteAllRows">
-            <summary>
-            Delete all the rows from the table
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.Dispose">
-            <summary>
-            Dispose the datasource. Does not do anything, this is only so that we can use 
-            this class in a 'using' statement like other datasource classes
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.#ctor(System.String,System.String,System.Boolean)">
-            <summary>
-            Initialize the data source. Also ensures that the table exists.
-            </summary>
-            <param name="storageConnectionString">Storage connection string</param>
-            <param name="tableName">Name of the table to connect to</param>
-            <param name="usesIsDeleted">Set to FALSE for tables that do not have an IsDeleted field (i.e., external tables not created by this SDK)</param>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.DataSource.#ctor(System.String,System.Type)">
-            <summary>
-            Initialize the data source. Also ensures that the table exists.
-            </summary>
-            <param name="storageConnectionString">Storage connection string</param>
-            <param name="businessObjectType">Type of business object</param>
-        </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount">
-            <summary>
-            An internal helper class to deal with Storage Account
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.IsDevelopmentStorage">
-            <summary>
-            If we are using the local development storage account
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.AccountName">
-            <summary>
-            Account name 
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.AccountKey">
-            <summary>
-            Storage account key
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.TableUri">
-            <summary>
-            Uri to the Table service (CosmosDB has the same scheme)
-            </summary>
-        </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.ConnectionString">
-            <summary>
-            Recomposed connection string
-            </summary>
-        </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.StorageAccount.#ctor(System.String)">
-            <summary>
-            Initialize the account information
-            </summary>
-            <param name="connectionString">Connection string</param>
         </member>
         <member name="T:SujaySarma.Data.Azure.Tables.Internal.CosmosDB.TableEntity">
             <summary>
