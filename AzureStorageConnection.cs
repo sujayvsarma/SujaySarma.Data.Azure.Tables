@@ -91,6 +91,8 @@ namespace SujaySarma.Data.Azure.Tables
 
             _currentTableReference = _tableClient.GetTableReference(tableName);
             _currentTableUsesIsDeleted = useIsDeleted;
+
+            _currentTableReference.CreateIfNotExists();
         }
 
         /// <summary>
@@ -105,8 +107,7 @@ namespace SujaySarma.Data.Azure.Tables
                 throw new TypeLoadException($"The type '{typeof(T).Name}' does not have a [Table] attribute.");
             }
 
-            _currentTableUsesIsDeleted = info.TableAttribute.UseSoftDelete;
-            Open(info.TableAttribute.TableName);
+            Open(info.TableAttribute.TableName, info.TableAttribute.UseSoftDelete);
         }
 
         /// <summary>

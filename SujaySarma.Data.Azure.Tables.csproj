@@ -14,10 +14,10 @@ If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to t
     <RepositoryUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>orm,data,azure,azure tables,cosmosdb,sql server</PackageTags>
-    <PackageReleaseNotes>This is the .Net 5.0 version of the SujaySarma.Sdk.DataSources.AzureTables library. This version is code and CLR optimized for .Net 5.0. 
-
-If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to this library is not a "simple upgrade". You will need to change imported namespaces as well as the object references in some places. There are also small differences in the way some functions work. We also have completely new functionality starting in this library!</PackageReleaseNotes>
-    <Version>5.0.0</Version>
+    <PackageReleaseNotes>Fixes a bug in 5.0.0 where the tables were not automatically created if they did not exist.</PackageReleaseNotes>
+    <Version>5.1.0</Version>
+    <AssemblyVersion>5.1.0.0</AssemblyVersion>
+    <FileVersion>5.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
