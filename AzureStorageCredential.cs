@@ -25,7 +25,7 @@ namespace SujaySarma.Data.Azure.Tables
         public AzureStorageCredential()
         {
             AccountName = DevelopmentStorageAccountName;
-            AccountSecret = DevelopmentStorageAccountName;
+            AccountSecret = DevelopmentStorageAccountKey;
         }
 
         /// <summary>
