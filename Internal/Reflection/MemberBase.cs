@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace SujaySarma.Data.Azure.Tables.Internal.Reflection
+namespace Internal.Reflection
 {
     /// <summary>
     /// Base class implementing functionality common to class fields and properties

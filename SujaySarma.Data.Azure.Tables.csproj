@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -40,6 +40,7 @@ If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to t
   <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
+    <None Remove="README.md" />
   </ItemGroup>
 
   <ItemGroup>

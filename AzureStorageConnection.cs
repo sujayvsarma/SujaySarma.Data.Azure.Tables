@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 
-using SujaySarma.Data.Azure.Tables.Internal.Reflection;
+using Internal.Reflection;
 
 using System;
 using System.Collections.Generic;
@@ -145,7 +145,7 @@ namespace SujaySarma.Data.Azure.Tables
             }
             
             _currentTableUsesIsDeleted = info.TableAttribute.UseSoftDelete;
-            ChangeTable(info.TableAttribute.TableName);
+            ChangeTable(info.TableAttribute.TableName, info.TableAttribute.UseSoftDelete);
         }
 
         /// <summary>

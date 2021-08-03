@@ -615,57 +615,57 @@
             <param name="clrType">The .NET CLR type to check</param>
             <returns>True if compatible.</returns>
         </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class">
+        <member name="T:Internal.Reflection.Class">
             <summary>
             Metadata about a class.
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.Name">
+        <member name="P:Internal.Reflection.Class.Name">
             <summary>
             Name of the class
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.TableAttribute">
+        <member name="P:Internal.Reflection.Class.TableAttribute">
             <summary>
             The Table attribute
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.HasPartitionKey">
+        <member name="P:Internal.Reflection.Class.HasPartitionKey">
             <summary>
             Get/set if the class has a PartitionKey defined
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.HasRowKey">
+        <member name="P:Internal.Reflection.Class.HasRowKey">
             <summary>
             Get/set if the class has a RowKey defined
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.HasETag">
+        <member name="P:Internal.Reflection.Class.HasETag">
             <summary>
             Get/set if the class has a ETag property defined
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.HasTimestamp">
+        <member name="P:Internal.Reflection.Class.HasTimestamp">
             <summary>
             Get/set if the class has a Timestamp defined
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.Properties">
+        <member name="P:Internal.Reflection.Class.Properties">
             <summary>
             A readonly list of the properties
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.Fields">
+        <member name="P:Internal.Reflection.Class.Fields">
             <summary>
             A readonly list of the fields
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.Members">
+        <member name="P:Internal.Reflection.Class.Members">
             <summary>
             A readonly list of both properties and fields
             </summary>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.Class.#ctor(System.String,SujaySarma.Data.Azure.Tables.Attributes.TableAttribute,System.Collections.Generic.IReadOnlyList{SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty},System.Collections.Generic.IReadOnlyList{SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField})">
+        <member name="M:Internal.Reflection.Class.#ctor(System.String,SujaySarma.Data.Azure.Tables.Attributes.TableAttribute,System.Collections.Generic.IReadOnlyList{Internal.Reflection.MemberProperty},System.Collections.Generic.IReadOnlyList{Internal.Reflection.MemberField})">
             <summary>
             Initialize the structure for an object
             </summary>
@@ -674,82 +674,82 @@
             <param name="properties">A readonly list of the properties in this object</param>
             <param name="fields">A readonly list of fields in this object</param>
         </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase">
+        <member name="T:Internal.Reflection.MemberBase">
             <summary>
             Base class implementing functionality common to class fields and properties
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.Name">
+        <member name="P:Internal.Reflection.MemberBase.Name">
             <summary>
             Name of the member
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.CanWrite">
+        <member name="P:Internal.Reflection.MemberBase.CanWrite">
             <summary>
             Flag indicating if the member can be written (has a Setter)
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.Type">
+        <member name="P:Internal.Reflection.MemberBase.Type">
             <summary>
             Data Type of the member
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsEdmType">
+        <member name="P:Internal.Reflection.MemberBase.IsEdmType">
             <summary>
             If true, the Type is supported by Edm
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsNullableType">
+        <member name="P:Internal.Reflection.MemberBase.IsNullableType">
             <summary>
             If true, the CLR type allows NULLs
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsPartitionKey">
+        <member name="P:Internal.Reflection.MemberBase.IsPartitionKey">
             <summary>
             Maps to the TableEntity's PartitionKey
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsRowKey">
+        <member name="P:Internal.Reflection.MemberBase.IsRowKey">
             <summary>
             Maps to the TableEntity's RowKey
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsETag">
+        <member name="P:Internal.Reflection.MemberBase.IsETag">
             <summary>
             Maps to the TableEntity's ETag property
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.IsTimestamp">
+        <member name="P:Internal.Reflection.MemberBase.IsTimestamp">
             <summary>
             Maps to the TableEntity's Timestamp property
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.TableEntityColumn">
+        <member name="P:Internal.Reflection.MemberBase.TableEntityColumn">
             <summary>
             If mapped to a TableEntity's fields, reference to the TableColumnAttribute for that.
             (Could be NULL)
             </summary>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.#ctor(System.Reflection.PropertyInfo)">
+        <member name="M:Internal.Reflection.MemberBase.#ctor(System.Reflection.PropertyInfo)">
             <summary>
             Initialize the structure
             </summary>
             <param name="property">The property</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.#ctor(System.Reflection.FieldInfo)">
+        <member name="M:Internal.Reflection.MemberBase.#ctor(System.Reflection.FieldInfo)">
             <summary>
             Initialize the structure
             </summary>
             <param name="field">The field</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.CommonInit(System.Reflection.MemberInfo,System.Type)">
+        <member name="M:Internal.Reflection.MemberBase.CommonInit(System.Reflection.MemberInfo,System.Type)">
             <summary>
             Common initialization
             </summary>
             <param name="member">MemberInfo</param>
             <param name="dataType">Type of property/field</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.Read``1(``0)">
+        <member name="M:Internal.Reflection.MemberBase.Read``1(``0)">
             <summary>
             Read the value from the property/field and return it
             </summary>
@@ -757,7 +757,7 @@
             <param name="obj">The object instance to read the value from</param>
             <returns>The value</returns>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.Write``1(``0,System.Object)">
+        <member name="M:Internal.Reflection.MemberBase.Write``1(``0,System.Object)">
             <summary>
             Writes the provided value to the property/field of the object instance
             </summary>
@@ -765,35 +765,35 @@
             <param name="obj">The object instance to write the value to</param>
             <param name="value">Value to write out</param>
         </member>
-        <member name="F:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.FLAGS_READ_WRITE">
+        <member name="F:Internal.Reflection.MemberBase.FLAGS_READ_WRITE">
             <summary>
             Binding flags for read and write of properties/fields
             </summary>
         </member>
-        <member name="F:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberBase.FixedColumnNames">
+        <member name="F:Internal.Reflection.MemberBase.FixedColumnNames">
             <summary>
             Names of columns that are fixed in Azure Tables
             </summary>
         </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField">
+        <member name="T:Internal.Reflection.MemberField">
             <summary>
             Contains metadata about a discovered interesting class Field
             </summary>
         </member>
-        <member name="F:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField._field">
+        <member name="F:Internal.Reflection.MemberField._field">
             <summary>
             There are no Get/set methods for the field. Reflection performs dirty unsafe tricks to 
             read and write values, using internal-only methods. The best way not to corrupt the heap/stack is 
             to cache the FieldInfo.
             </summary>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField.#ctor(System.Reflection.FieldInfo)">
+        <member name="M:Internal.Reflection.MemberField.#ctor(System.Reflection.FieldInfo)">
             <summary>
             Initialize the structure for a field
             </summary>
             <param name="field">Field to import</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField.Read``1(``0)">
+        <member name="M:Internal.Reflection.MemberField.Read``1(``0)">
             <summary>
             Read the value from the field and return it
             </summary>
@@ -801,7 +801,7 @@
             <param name="obj">The object instance to read the value from</param>
             <returns>The value</returns>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberField.Write``1(``0,System.Object)">
+        <member name="M:Internal.Reflection.MemberField.Write``1(``0,System.Object)">
             <summary>
             Writes the provided value to the object instance
             </summary>
@@ -809,28 +809,28 @@
             <param name="obj">The object instance to write the value to</param>
             <param name="value">Value to write out</param>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.CanRead">
+        <member name="P:Internal.Reflection.MemberProperty.CanRead">
             <summary>
             Flag indicating if the member can be read (has a Getter)
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.GetMethod">
+        <member name="P:Internal.Reflection.MemberProperty.GetMethod">
             <summary>
             The MethodInfo for the member's GET accessor
             </summary>
         </member>
-        <member name="P:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.SetMethod">
+        <member name="P:Internal.Reflection.MemberProperty.SetMethod">
             <summary>
             The MethodInfo for the member's SET accessor
             </summary>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.#ctor(System.Reflection.PropertyInfo)">
+        <member name="M:Internal.Reflection.MemberProperty.#ctor(System.Reflection.PropertyInfo)">
             <summary>
             Initialize the structure for a Property
             </summary>
             <param name="reflectedProperty">Property to import</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.Read``1(``0)">
+        <member name="M:Internal.Reflection.MemberProperty.Read``1(``0)">
             <summary>
             Read the value from the property or field and return it
             </summary>
@@ -838,7 +838,7 @@
             <param name="obj">The object instance to read the value from</param>
             <returns>The value</returns>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.MemberProperty.Write``1(``0,System.Object)">
+        <member name="M:Internal.Reflection.MemberProperty.Write``1(``0,System.Object)">
             <summary>
             Writes the provided value to the object instance - WITHOUT type conversion.
             </summary>
@@ -846,33 +846,33 @@
             <param name="obj">The object instance to write the value to</param>
             <param name="value">Value to write out</param>
         </member>
-        <member name="T:SujaySarma.Data.Azure.Tables.Internal.Reflection.ReflectionCache">
+        <member name="T:Internal.Reflection.ReflectionCache">
             <summary>
             A classes inspected and cached by hte Type inspection engine
             </summary>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.ReflectionCache.TrySet(SujaySarma.Data.Azure.Tables.Internal.Reflection.Class,System.String)">
+        <member name="M:Internal.Reflection.ReflectionCache.TrySet(Internal.Reflection.Class,System.String)">
             <summary>
             Add an item to cache if it is not already in it
             </summary>
             <param name="info">Item to add</param>
             <param name="keyName">The key name of the object</param>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.ReflectionCache.TryGet(System.String)">
+        <member name="M:Internal.Reflection.ReflectionCache.TryGet(System.String)">
             <summary>
             Fetch an item from cache
             </summary>
             <param name="keyName">Key name of object</param>
             <returns>Cached information or NULL</returns>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.Reflector.InspectForAzureTables``1">
+        <member name="M:Internal.Reflection.Reflector.InspectForAzureTables``1">
             <summary>
             Inspect a class for Azure Tables
             </summary>
             <typeparam name="ClassT">Type of business class to be stored into Azure Tables</typeparam>
             <returns>Reflected class metadata</returns>
         </member>
-        <member name="M:SujaySarma.Data.Azure.Tables.Internal.Reflection.Reflector.InspectForAzureTables(System.Type)">
+        <member name="M:Internal.Reflection.Reflector.InspectForAzureTables(System.Type)">
             <summary>
             Inspect a class for Azure Tables
             </summary>

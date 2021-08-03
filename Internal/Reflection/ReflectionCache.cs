@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SujaySarma.Data.Azure.Tables.Internal.Reflection
+namespace Internal.Reflection
 {
     /// <summary>
     /// A classes inspected and cached by hte Type inspection engine

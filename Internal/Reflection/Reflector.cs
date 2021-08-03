@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SujaySarma.Data.Azure.Tables.Internal.Reflection
+namespace Internal.Reflection
 {
     internal class Reflector
     {

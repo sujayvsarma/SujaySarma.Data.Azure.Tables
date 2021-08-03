@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace SujaySarma.Data.Azure.Tables.Internal.Reflection
+namespace Internal.Reflection
 {
     /// <summary>
     /// Contains metadata about a discovered interesting class Field

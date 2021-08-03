@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 using SujaySarma.Data.Azure.Tables.Attributes;
 using SujaySarma.Data.Azure.Tables.Internal.Helpers;
-using SujaySarma.Data.Azure.Tables.Internal.Reflection;
+using Internal.Reflection;
 
 using System;
 using System.Collections.Generic;
