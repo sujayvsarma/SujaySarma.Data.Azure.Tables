@@ -17,7 +17,7 @@ namespace SujaySarma.Data.Azure.Tables.Attributes
         /// <summary>
         /// If set, we use soft-delete by setting the IsDeleted flag to true.
         /// </summary>
-        public bool UseSoftDelete { get; set; }
+        public bool UseSoftDelete { get; set; } = true;
 
         /// <summary>
         /// Provides information about the table used to contain the data for an object.

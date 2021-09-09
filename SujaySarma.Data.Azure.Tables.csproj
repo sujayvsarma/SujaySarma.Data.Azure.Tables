@@ -5,25 +5,33 @@
     <Nullable>enable</Nullable>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Description>This is the .Net 5.0 version of the SujaySarma.Sdk.DataSources.AzureTables library. This version is code and CLR optimized for .Net 5.0. 
+    <Description>NEW FEATURES:
+* The Connection.Open() function adds a new parameter (skipCreateCheck) to let it skip the "Create Table if not exists" step. Can improve incremental performance when you already "know" that the table exists.
+* Relationships. Either use the extension functions provided in the "Relationships" namespace, or use the Joins property in the Commands.Query class.
 
-If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to this library is not a "simple upgrade". You will need to change imported namespaces as well as the object references in some places. There are also small differences in the way some functions work. We also have completely new functionality starting in this library!</Description>
+Note that for a single table, the Relationships.With/Without methods provide better performance than using the Query.Joins property. This is because of the overhead involved for the subqueries.
+
+BUGS FIXED:
+* Minor logic improvements
+* Minor performance improvements</Description>
     <Copyright>(c) 2021 Sujay V Sarma. All Rights Reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>orm,data,azure,azure tables,cosmosdb,.net 5.0,.net</PackageTags>
-    <PackageReleaseNotes>Fixes a bug in 5.1.0 where there was a problem connecting to Development Storage</PackageReleaseNotes>
-    <Version>5.1.5</Version>
-    <AssemblyVersion>5.1.5.0</AssemblyVersion>
-    <FileVersion>5.1.5.0</FileVersion>
+    <PackageTags>orm,data,azure,azure tables,cosmosdb,.net 6.0,.net</PackageTags>
+    <PackageReleaseNotes>This is a release targeting .Net 6.0</PackageReleaseNotes>
+    <Version>6.3.0</Version>
+    <AssemblyVersion>6.0.3.0</AssemblyVersion>
+    <FileVersion>6.0.3.0</FileVersion>
     <Authors>Sujay V. Sarma</Authors>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants></DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>False</Optimize>
     <DocumentationFile></DocumentationFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DebugType>embedded</DebugType>
@@ -35,6 +43,7 @@ If you are using the SujaySarma.Sdk.DataSources.AzureTables library, moving to t
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

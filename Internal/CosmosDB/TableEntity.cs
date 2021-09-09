@@ -1,17 +1,14 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Internal.Reflection;
+
+using Microsoft.Azure.Cosmos.Table;
 
 using Newtonsoft.Json;
 
 using SujaySarma.Data.Azure.Tables.Attributes;
 using SujaySarma.Data.Azure.Tables.Internal.Helpers;
-using Internal.Reflection;
+using SujaySarma.Data.Azure.Tables.Internal.Reflection;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
 {
@@ -136,20 +133,36 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
             return value;
         }
 
+        /// <summary>
+        /// Returns existing properties
+        /// </summary>
+        internal IDictionary<string, object?> Properties
+        {
+            get => _properties;
+        }
+
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Blank constructor, used by the rehydrator
-        /// </summary>
         public TableEntity()
         {
             Timestamp = DateTimeOffset.UtcNow;
-            AddOrUpdateProperty(PROPERTY_NAME_ISDELETED, false);
 
             // without this data cannot be updated
             ETag = "*";
+        }
+
+        /// <summary>
+        /// Blank constructor, used by the rehydrator
+        /// </summary>
+        /// <param name="useSoftDelete">If set, adds the IsDeleted column.</param>
+        public TableEntity(bool useSoftDelete = true) : this()
+        {
+            if (useSoftDelete)
+            {
+                AddOrUpdateProperty(PROPERTY_NAME_ISDELETED, false);
+            }
         }
 
         /// <summary>
@@ -167,13 +180,13 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            TableEntity entity = new();
-
             Class? objectInfo = Reflector.InspectForAzureTables<T>();
             if (objectInfo == null)
             {
                 throw new TypeLoadException($"Type '{typeof(T).FullName}' is not anotated with the '{typeof(TableAttribute).FullName}' attribute or has no properties/fields mapped to an Azure table.");
             }
+
+            TableEntity entity = new(objectInfo.TableAttribute.UseSoftDelete);
 
             bool hasPartitionKey = false, hasRowKey = false, hasEtag = false;
             foreach (MemberBase member in objectInfo.Members)
@@ -187,7 +200,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                         throw new Exception("PartitionKey must be NON NULL.");
                     }
 
-                    if (GetAcceptableValue(member.Type, typeof(string), value) is not string pk1)
+                    if (ReflectionUtils.GetAcceptableValue(member.Type, typeof(string), value) is not string pk1)
                     {
                         throw new InvalidOperationException("PartitionKey cannot be NULL.");
                     }
@@ -202,7 +215,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                         throw new Exception("RowKey must be NON NULL.");
                     }
 
-                    if (GetAcceptableValue(member.Type, typeof(string), value) is not string rk1)
+                    if (ReflectionUtils.GetAcceptableValue(member.Type, typeof(string), value) is not string rk1)
                     {
                         throw new InvalidOperationException("RowKey cannot be NULL.");
                     }
@@ -217,7 +230,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                         value = "*";
                     }
 
-                    if (GetAcceptableValue(member.Type, typeof(string), value) is not string etag)
+                    if (ReflectionUtils.GetAcceptableValue(member.Type, typeof(string), value) is not string etag)
                     {
                         throw new InvalidOperationException("ETag cannot be NULL.");
                     }
@@ -239,7 +252,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                     {
                         entity.AddOrUpdateProperty(
                             member.TableEntityColumn.ColumnName,
-                            GetAcceptableValue(member.Type, (member.IsEdmType ? member.Type : typeof(string)), value)
+                            ReflectionUtils.GetAcceptableValue(member.Type, (member.IsEdmType ? member.Type : typeof(string)), value)
                         );
                     }
                 }
@@ -311,22 +324,22 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
             {
                 if (member.IsPartitionKey)
                 {
-                    member.Write(instance, GetAcceptableValue(typeof(string), member.Type, PartitionKey));
+                    member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, PartitionKey));
                 }
 
                 if (member.IsRowKey)
                 {
-                    member.Write(instance, GetAcceptableValue(typeof(string), member.Type, RowKey));
+                    member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, RowKey));
                 }
 
                 if (member.IsETag)
                 {
-                    member.Write(instance, GetAcceptableValue(typeof(string), member.Type, ETag));
+                    member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, ETag));
                 }
 
                 if (member.IsTimestamp)
                 {
-                    member.Write(instance, GetAcceptableValue(typeof(DateTimeOffset), member.Type, Timestamp));
+                    member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(DateTimeOffset), member.Type, Timestamp));
                 }
 
                 if (member.TableEntityColumn != null)
@@ -344,7 +357,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                         }
                         else
                         {
-                            member.Write(instance, GetAcceptableValue(value.GetType(), member.Type, value));
+                            member.Write(instance, ReflectionUtils.GetAcceptableValue(value.GetType(), member.Type, value));
                         }
                     }
                 }
@@ -379,22 +392,22 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                     {
                         if (member.IsPartitionKey)
                         {
-                            member.Write(instance, GetAcceptableValue(typeof(string), member.Type, tableEntity.PartitionKey));
+                            member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, tableEntity.PartitionKey));
                         }
 
                         if (member.IsRowKey)
                         {
-                            member.Write(instance, GetAcceptableValue(typeof(string), member.Type, tableEntity.RowKey));
+                            member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, tableEntity.RowKey));
                         }
 
                         if (member.IsETag)
                         {
-                            member.Write(instance, GetAcceptableValue(typeof(string), member.Type, tableEntity.ETag));
+                            member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(string), member.Type, tableEntity.ETag));
                         }
 
                         if (member.IsTimestamp)
                         {
-                            member.Write(instance, GetAcceptableValue(typeof(DateTimeOffset), member.Type, tableEntity.Timestamp));
+                            member.Write(instance, ReflectionUtils.GetAcceptableValue(typeof(DateTimeOffset), member.Type, tableEntity.Timestamp));
                         }
 
                         if (member.TableEntityColumn != null)
@@ -412,7 +425,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
                                 }
                                 else
                                 {
-                                    member.Write(instance, GetAcceptableValue(value.GetType(), member.Type, value));
+                                    member.Write(instance, ReflectionUtils.GetAcceptableValue(value.GetType(), member.Type, value));
                                 }
                             }
                         }
@@ -454,38 +467,23 @@ namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
             }
         }
 
+        /// <summary>
+        /// Widen the table by appending the incoming columns. Column names will be prefixed with "tablePrefix_"
+        /// </summary>
+        /// <param name="entity">Table entity to assimilate</param>
+        /// <param name="tablePrefix">String to prefix for this table columns</param>
+        public void WidenTable(TableEntity entity, string tablePrefix)
+        {
+            foreach(string propertyName in entity._properties.Keys)
+            {
+                _properties.Add($"{tablePrefix}_{propertyName}", entity._properties[propertyName]);
+            }
+        }
+
         #endregion
 
 
         #region Private helpers
-
-        /// <summary>
-        /// Returns a value that matches the destination type
-        /// </summary>
-        /// <param name="sourceType">Type of value being provided</param>
-        /// <param name="destinationType">Type of the destination container</param>
-        /// <param name="value">Value to convert/change</param>
-        /// <returns>The value of type destinationType</returns>
-        private static object? GetAcceptableValue(Type sourceType, Type destinationType, object? value)
-        {
-            Type? srcActualType = Nullable.GetUnderlyingType(sourceType);
-            Type convertFromType = srcActualType ?? sourceType;
-
-            Type? destActualType = Nullable.GetUnderlyingType(destinationType);
-            Type convertToType = destActualType ?? destinationType;
-
-            if (value == null)
-            {
-                return null;
-            }
-
-            if (Edm.NeedsConversion(convertFromType, convertToType))
-            {
-                return Edm.ConvertTo(convertToType, value);
-            }
-
-            return value;
-        }
 
         /// <summary>
         /// Check if the proposedValue is valid as a partition/row key

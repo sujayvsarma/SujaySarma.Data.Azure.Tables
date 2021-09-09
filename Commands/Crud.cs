@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SujaySarma.Data.Azure.Tables.Commands
+﻿namespace SujaySarma.Data.Azure.Tables.Commands
 {
     /// <summary>
     /// Defines a CRUD (Create, Replace, Update, Delete) operation on the Azure Storage Table
@@ -32,6 +30,17 @@ namespace SujaySarma.Data.Azure.Tables.Commands
         {
             CommandType = type;
             Data = data;
+        }
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
+        /// <param name="type">Type of operation to perform</param>
+        /// <param name="data">Data to set in the Azure Table Storage</param>
+        public Crud(OperationType type, T data)
+        {
+            CommandType = type;
+            Data = new[] { data };
         }
 
 

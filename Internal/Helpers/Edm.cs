@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 
 namespace SujaySarma.Data.Azure.Tables.Internal.Helpers
@@ -23,7 +22,7 @@ namespace SujaySarma.Data.Azure.Tables.Internal.Helpers
                 throw new TypeLoadException($"'{clrType.Name}' is not compatible for Edm.");
             }
 
-            return (Type.GetTypeCode(clrType) != Type.GetTypeCode(edmType));
+            return (!edmType.FullName!.Equals(clrType.FullName, StringComparison.Ordinal));
         }
 
         /// <summary>
@@ -46,40 +45,40 @@ namespace SujaySarma.Data.Azure.Tables.Internal.Helpers
             }
 
             TypeConverter converter = TypeDescriptor.GetConverter(destinationType);
-            if ((converter == null) || (!converter.CanConvertTo(destinationType)))
+            if ((converter != null) && (converter.CanConvertTo(destinationType)))
             {
-                // see if type has a Parse static method
-                MethodInfo[] methods = destinationType.GetMethods(BindingFlags.Public | BindingFlags.Static);
-                if ((methods != null) && (methods.Length > 0))
+                return converter.ConvertTo(value, destinationType);
+            }
+
+            // see if type has a Parse static method
+            MethodInfo[] methods = destinationType.GetMethods(BindingFlags.Public | BindingFlags.Static);
+            if ((methods != null) && (methods.Length > 0))
+            {
+                Type sourceType = ((value == null) ? typeof(object) : value.GetType());
+                foreach (MethodInfo m in methods)
                 {
-                    Type sourceType = ((value == null) ? typeof(object) : value.GetType());
-                    foreach (MethodInfo m in methods)
+                    if (m.Name.Equals("Parse"))
                     {
-                        if (m.Name.Equals("Parse"))
+                        ParameterInfo? p = m.GetParameters()?[0];
+                        if ((p != null) && (p.ParameterType == sourceType))
                         {
-                            ParameterInfo? p = m.GetParameters()?[0];
-                            if ((p != null) && (p.ParameterType == sourceType))
-                            {
-                                return m.Invoke(null, new object?[] { value });
-                            }
+                            return m.Invoke(null, new object?[] { value });
                         }
-                        else if (m.Name.Equals("TryParse"))
+                    }
+                    else if (m.Name.Equals("TryParse"))
+                    {
+                        ParameterInfo? p = m.GetParameters()?[0];
+                        if ((p != null) && (p.ParameterType == sourceType))
                         {
-                            ParameterInfo? p = m.GetParameters()?[0];
-                            if ((p != null) && (p.ParameterType == sourceType))
-                            {
-                                object?[]? parameters = new object?[] { value, null };
-                                bool? tpResult = (bool?)m.Invoke(null, parameters);
-                                return ((tpResult.HasValue && tpResult.Value) ? parameters[1] : default);
-                            }
+                            object?[]? parameters = new object?[] { value, null };
+                            bool? tpResult = (bool?)m.Invoke(null, parameters);
+                            return ((tpResult.HasValue && tpResult.Value) ? parameters[1] : default);
                         }
                     }
                 }
-
-                throw new TypeLoadException($"Could not find type converters for '{destinationType.Name}' type.");
             }
 
-            return converter.ConvertTo(value, destinationType);
+            throw new TypeLoadException($"Could not find type converters for '{destinationType.Name}' type.");
         }
 
         /// <summary>

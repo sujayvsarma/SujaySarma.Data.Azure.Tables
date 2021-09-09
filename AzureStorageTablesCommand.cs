@@ -1,11 +1,9 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿
+using Microsoft.Azure.Cosmos.Table;
 
 using SujaySarma.Data.Azure.Tables.Commands;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SujaySarma.Data.Azure.Tables.Internal.Reflection;
+using SujaySarma.Data.Azure.Tables.Relationships;
 
 namespace SujaySarma.Data.Azure.Tables
 {
@@ -38,10 +36,53 @@ namespace SujaySarma.Data.Azure.Tables
         /// <returns>IEnumerable rows</returns>
         public IEnumerable<Internal.CosmosDB.TableEntity> ExecuteQuery(Query query)
         {
+            query.UsesIsDeleted = UsesIsDeleted;
             TableQuery<Internal.CosmosDB.TableEntity> q = query.ToQuery();
+
             foreach (Internal.CosmosDB.TableEntity tableEntity in Connection.ExecuteQuery(q))
             {
-                yield return tableEntity;
+                bool retainRow = true;
+
+                if (query.Joins.Count > 0)
+                {
+                    foreach(RelatedJoin join in query.Joins)
+                    {
+                        string filterWithLoopReplacements = join.ODataFilter;
+                        filterWithLoopReplacements = filterWithLoopReplacements.Replace("$(PartitionKey)", tableEntity.PartitionKey);
+                        filterWithLoopReplacements = filterWithLoopReplacements.Replace("$(RowKey)", tableEntity.RowKey);
+                        filterWithLoopReplacements = filterWithLoopReplacements.Replace("$(Timestamp)", tableEntity.Timestamp.ToString());
+                        filterWithLoopReplacements = filterWithLoopReplacements.Replace("$(ETag)", tableEntity.ETag);
+
+                        foreach (string propertyName in tableEntity.Properties.Keys)
+                        {
+                            object? propertyValue = tableEntity.Properties[propertyName];
+                            string str = ((propertyValue == null) ? "null" : (string)ReflectionUtils.GetAcceptableValue(propertyValue.GetType(), typeof(string), propertyValue)!);
+                            filterWithLoopReplacements = filterWithLoopReplacements.Replace($"$({propertyName})", str);
+                        }
+                        filterWithLoopReplacements = filterWithLoopReplacements.Replace("\"null\"", "null");
+
+                        using (AzureStorageConnection cn = new(Connection.ConnectionString))
+                        {
+                            cn.Open(join.TableType.TableAttribute.TableName, join.TableType.TableAttribute.UseSoftDelete, skipCreateCheck: true);
+                            AzureStorageTablesCommand filterCmd = cn.CreateCommand();
+
+                            bool filterHasRows = filterCmd.ExecuteQuery(new Query() { Count = 1, ODataFilterString = filterWithLoopReplacements }).Any();
+                            cn.Close();
+
+                            retainRow = retainRow && (((join.Type == RelatedJoinType.RetainWhenHasAny) && filterHasRows) || ((join.Type == RelatedJoinType.RetainWhenEmpty) && (! filterHasRows)));
+                        }
+
+                        if (! retainRow)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (retainRow)
+                {
+                    yield return tableEntity;
+                }
             }
         }
 
@@ -53,8 +94,7 @@ namespace SujaySarma.Data.Azure.Tables
         /// <returns>IEnumerable of business object instances</returns>
         public IEnumerable<T> ExecuteQuery<T>(Query query) where T : class, new()
         {
-            TableQuery<Internal.CosmosDB.TableEntity> q = query.ToQuery();
-            foreach (Internal.CosmosDB.TableEntity tableEntity in Connection.ExecuteQuery(q))
+            foreach (Internal.CosmosDB.TableEntity tableEntity in ExecuteQuery(query))
             {
                 yield return tableEntity.To<T>();
             }
@@ -67,6 +107,13 @@ namespace SujaySarma.Data.Azure.Tables
         /// <param name="operation">The operation to execute (as an SDK Crud operation)</param>
         public void ExecuteNonQuery<T>(Crud<T> operation) where T : class, new()
         {
+            // Don't use batches for small-sized requests
+            // "5" is arbitrary
+            if (operation.Data.Count() < 5)
+            {
+                operation.UseBatches = false;
+            }
+
             switch (operation.CommandType)
             {
                 case OperationType.Insert:
@@ -185,8 +232,12 @@ namespace SujaySarma.Data.Azure.Tables
                             if (UsesIsDeleted)
                             {
                                 entity.AddOrUpdateProperty(Internal.CosmosDB.TableEntity.PROPERTY_NAME_ISDELETED, true);
+                                tbo.Replace(entity);
                             }
-                            tbo.Delete(entity);
+                            else
+                            {
+                                tbo.Delete(entity);
+                            }
                         }
 
                         ExecuteNonQuery(tbo);
@@ -199,9 +250,12 @@ namespace SujaySarma.Data.Azure.Tables
                             if (UsesIsDeleted)
                             {
                                 entity.AddOrUpdateProperty(Internal.CosmosDB.TableEntity.PROPERTY_NAME_ISDELETED, true);
+                                ExecuteNonQuery(TableOperation.Replace(entity));
                             }
-
-                            ExecuteNonQuery(TableOperation.Delete(entity));
+                            else
+                            {
+                                ExecuteNonQuery(TableOperation.Delete(entity));
+                            }
                         }
                     }
                     break;

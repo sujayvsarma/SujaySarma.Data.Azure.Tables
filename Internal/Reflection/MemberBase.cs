@@ -1,8 +1,6 @@
 ﻿using SujaySarma.Data.Azure.Tables.Attributes;
 using SujaySarma.Data.Azure.Tables.Internal.Helpers;
 
-using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Internal.Reflection

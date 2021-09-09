@@ -1,6 +1,6 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Internal.Reflection;
 
-using Internal.Reflection;
+using Microsoft.Azure.Cosmos.Table;
 
 using System;
 using System.Collections.Generic;
@@ -77,7 +77,8 @@ namespace SujaySarma.Data.Azure.Tables
         /// </summary>
         /// <param name="tableName">Name of the table to connect to</param>
         /// <param name="useIsDeleted">Set FALSE to disable use of IsDeleted column</param>
-        public void Open(string tableName, bool useIsDeleted = true)
+        /// <param name="skipCreateCheck">Set TRUE to skip automatic creation step</param>
+        public void Open(string tableName, bool useIsDeleted = true, bool skipCreateCheck = false)
         {
             if (_currentTableReference != null)
             {
@@ -92,7 +93,10 @@ namespace SujaySarma.Data.Azure.Tables
             _currentTableReference = _tableClient.GetTableReference(tableName);
             _currentTableUsesIsDeleted = useIsDeleted;
 
-            _currentTableReference.CreateIfNotExists();
+            if (!skipCreateCheck)
+            {
+                _currentTableReference.CreateIfNotExists();
+            }
         }
 
         /// <summary>

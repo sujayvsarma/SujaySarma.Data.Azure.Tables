@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SujaySarma.Data.Azure.Tables
+﻿namespace SujaySarma.Data.Azure.Tables
 {
     /// <summary>
     /// Represents a credential used to connect to Azure Storage

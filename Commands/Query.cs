@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 
-using System.Collections.Generic;
+using SujaySarma.Data.Azure.Tables.Relationships;
+
 using System.Text;
 
 namespace SujaySarma.Data.Azure.Tables.Commands
@@ -53,6 +54,16 @@ namespace SujaySarma.Data.Azure.Tables.Commands
         /// </summary>
         public bool UsesIsDeleted { get; set; } = true;
 
+        /// <summary>
+        /// False (default) if generated query should ignore the IsDeleted column
+        /// </summary>
+        public bool IgnoreIsDeleted { get; set; } = false;
+
+        /// <summary>
+        /// All the join/filters to be applied
+        /// </summary>
+        public IList<RelatedJoin> Joins { get; set; } = new List<RelatedJoin>();
+
 
         /// <summary>
         /// Initialize the structure
@@ -67,9 +78,9 @@ namespace SujaySarma.Data.Azure.Tables.Commands
         public TableQuery<Internal.CosmosDB.TableEntity> ToQuery()
         {
             StringBuilder query = new();
-            if (UsesIsDeleted)
+            if (UsesIsDeleted && (! IgnoreIsDeleted))
             {
-                query.Append("(IsDeleted eq false)");
+                query.Append("IsDeleted eq false");
             }
 
             if (!string.IsNullOrWhiteSpace(PartitionKey))
@@ -78,7 +89,7 @@ namespace SujaySarma.Data.Azure.Tables.Commands
                 {
                     query.Append(" and ");
                 }
-                query.Append($"(PartitionKey eq '{PartitionKey}')");
+                query.Append($"PartitionKey eq '{PartitionKey}'");
             }
 
             if (!string.IsNullOrWhiteSpace(RowKey))
@@ -87,7 +98,7 @@ namespace SujaySarma.Data.Azure.Tables.Commands
                 {
                     query.Append(" and ");
                 }
-                query.Append($"(RowKey eq '{RowKey}')");
+                query.Append($"RowKey eq '{RowKey}'");
             }
 
             if (!string.IsNullOrWhiteSpace(ODataFilterString))
@@ -96,7 +107,7 @@ namespace SujaySarma.Data.Azure.Tables.Commands
                 {
                     query.Append(" and ");
                 }
-                query.Append($"({ODataFilterString})");
+                query.Append($"{ODataFilterString}");
             }
 
             TableQuery<Internal.CosmosDB.TableEntity> tableQuery = (new TableQuery<Internal.CosmosDB.TableEntity>()).Where(query.ToString());
@@ -140,5 +151,11 @@ namespace SujaySarma.Data.Azure.Tables.Commands
 
             return tableQuery;
         }
+
+        /// <summary>
+        /// Return the fully constructed filter string
+        /// </summary>
+        /// <returns>Filter string</returns>
+        public override string ToString() => ToQuery().FilterString;
     }
 }
