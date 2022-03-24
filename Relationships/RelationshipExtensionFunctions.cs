@@ -3,6 +3,10 @@
 using SujaySarma.Data.Azure.Tables.Commands;
 using SujaySarma.Data.Azure.Tables.Internal.Reflection;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace SujaySarma.Data.Azure.Tables.Relationships
 {
     /// <summary>

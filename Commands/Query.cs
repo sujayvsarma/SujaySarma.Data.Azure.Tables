@@ -2,6 +2,7 @@
 
 using SujaySarma.Data.Azure.Tables.Relationships;
 
+using System.Collections.Generic;
 using System.Text;
 
 namespace SujaySarma.Data.Azure.Tables.Commands

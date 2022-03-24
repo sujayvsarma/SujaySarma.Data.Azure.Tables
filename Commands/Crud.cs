@@ -1,4 +1,7 @@
-﻿namespace SujaySarma.Data.Azure.Tables.Commands
+﻿
+using System.Collections.Generic;
+
+namespace SujaySarma.Data.Azure.Tables.Commands
 {
     /// <summary>
     /// Defines a CRUD (Create, Replace, Update, Delete) operation on the Azure Storage Table

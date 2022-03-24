@@ -2,6 +2,7 @@
 using SujaySarma.Data.Azure.Tables.Internal.Helpers;
 
 using System.Reflection;
+using System;
 
 namespace Internal.Reflection
 {
@@ -116,9 +117,12 @@ namespace Internal.Reflection
                 {
                     // Now the problem is legacy code that may define columns we now have attributes for 
                     // as TableColumn() with matching names. We do not want those anymore!
-                    if (FixedColumnNames.Contains(tc.ColumnName))
+                    foreach(string fcn in FixedColumnNames)
                     {
-                        throw new TypeLoadException($"{member.Name} is mapped to {tc.ColumnName} that has its own attribute. Use the '{tc.ColumnName}' attribute instead of specifying it as a column name!");
+                        if (fcn.Equals(tc.ColumnName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            throw new TypeLoadException($"{member.Name} is mapped to {tc.ColumnName} that has its own attribute. Use the '{tc.ColumnName}' attribute instead of specifying it as a column name!");
+                        }
                     }
 
                     // Traditional column

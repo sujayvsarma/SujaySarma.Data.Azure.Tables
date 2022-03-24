@@ -5,6 +5,11 @@ using SujaySarma.Data.Azure.Tables.Commands;
 using SujaySarma.Data.Azure.Tables.Internal.Reflection;
 using SujaySarma.Data.Azure.Tables.Relationships;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace SujaySarma.Data.Azure.Tables
 {
     /// <summary>

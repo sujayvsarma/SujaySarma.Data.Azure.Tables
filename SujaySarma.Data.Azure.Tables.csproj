@@ -5,25 +5,17 @@
     <Nullable>enable</Nullable>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Description>NEW FEATURES:
-* The Connection.Open() function adds a new parameter (skipCreateCheck) to let it skip the "Create Table if not exists" step. Can improve incremental performance when you already "know" that the table exists.
-* Relationships. Either use the extension functions provided in the "Relationships" namespace, or use the Joins property in the Commands.Query class.
-
-Note that for a single table, the Relationships.With/Without methods provide better performance than using the Query.Joins property. This is because of the overhead involved for the subqueries.
-
-BUGS FIXED:
-* Minor logic improvements
-* Minor performance improvements</Description>
-    <Copyright>(c) 2021 Sujay V Sarma. All Rights Reserved.</Copyright>
+    <Description>Fixes some assembly references and both AzureStorageConnection.Open() overloads now use the skipCreateCheck flag.</Description>
+    <Copyright>(c) 2022 Sujay V Sarma. All Rights Reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sujayvsarma/SujaySarma.Data.Azure.Tables</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>orm,data,azure,azure tables,cosmosdb,.net 6.0,.net</PackageTags>
     <PackageReleaseNotes>This is a release targeting .Net 6.0</PackageReleaseNotes>
-    <Version>6.3.0</Version>
-    <AssemblyVersion>6.0.3.0</AssemblyVersion>
-    <FileVersion>6.0.3.0</FileVersion>
+    <Version>6.3.5</Version>
+    <AssemblyVersion>6.0.3.5</AssemblyVersion>
+    <FileVersion>6.0.3.5</FileVersion>
     <Authors>Sujay V. Sarma</Authors>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>

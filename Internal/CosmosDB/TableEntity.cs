@@ -9,6 +9,8 @@ using SujaySarma.Data.Azure.Tables.Internal.Helpers;
 using SujaySarma.Data.Azure.Tables.Internal.Reflection;
 
 using System.Text.RegularExpressions;
+using System;
+using System.Collections.Generic;
 
 namespace SujaySarma.Data.Azure.Tables.Internal.CosmosDB
 {

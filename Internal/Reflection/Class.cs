@@ -1,5 +1,7 @@
 ﻿using SujaySarma.Data.Azure.Tables.Attributes;
 
+using System.Collections.Generic;
+
 namespace Internal.Reflection
 {
     /// <summary>

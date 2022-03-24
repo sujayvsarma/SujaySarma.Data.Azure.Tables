@@ -1,5 +1,7 @@
 ﻿using Internal.Reflection;
 
+using System;
+
 namespace SujaySarma.Data.Azure.Tables.Relationships
 {
     /// <summary>

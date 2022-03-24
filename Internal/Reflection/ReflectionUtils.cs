@@ -1,5 +1,7 @@
 ﻿using SujaySarma.Data.Azure.Tables.Internal.Helpers;
 
+using System;
+
 namespace SujaySarma.Data.Azure.Tables.Internal.Reflection
 {
     public static class ReflectionUtils

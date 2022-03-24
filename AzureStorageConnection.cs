@@ -103,7 +103,8 @@ namespace SujaySarma.Data.Azure.Tables
         /// Open a connection to the specified object
         /// </summary>
         /// <typeparam name="T">Type of business object</typeparam>
-        public void Open<T>() where T : class, new()
+        /// <param name="skipCreateCheck">Set TRUE to skip automatic creation step</param>
+        public void Open<T>(bool skipCreateCheck = false) where T : class, new()
         {
             Class? info = Reflector.InspectForAzureTables<T>();
             if ((info == null) || string.IsNullOrWhiteSpace(info.TableAttribute.TableName))
@@ -111,7 +112,7 @@ namespace SujaySarma.Data.Azure.Tables
                 throw new TypeLoadException($"The type '{typeof(T).Name}' does not have a [Table] attribute.");
             }
 
-            Open(info.TableAttribute.TableName, info.TableAttribute.UseSoftDelete);
+            Open(info.TableAttribute.TableName, info.TableAttribute.UseSoftDelete, skipCreateCheck);
         }
 
         /// <summary>
