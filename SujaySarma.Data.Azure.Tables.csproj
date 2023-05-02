@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Description>
+			Use this SDK to simplify your solutions that store or query data from Azure Storage Tables or Cosmos DB. 
+			Use the library seamlessly on your local development machine using Azure Development Storage (now Azurite). 
+			This package is maintained very regularly as I (the author) use it in almost all of my tools and apps. 
+			Bugs found (or reported) are rectified very quickly, typically the same day. 
+			New features and API are added regularly. 
+			Source code is available on request (send me an e-mail).
+		</Description>
+		<Copyright>(c) 2023 Sujay V Sarma. All Rights Reserved.</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>azure,tables,azure storage tables,cosmos,cosmosdb,tables api,sujay,sujaysarma,sujay sarma</PackageTags>
+		<PackageReleaseNotes>
+			Version 8.0.0 - Bug fixes and Enhancements:
+			1. Performance optimizations
+			2. Retired the old StorageConnection and Command classes. Now the only way to use is via the AzureTablesContext class.
+			3. Added async support. Almost every method has an async equivalent. See readme for details.
+			4. bug fixed: Fixed problem with dev storage connection string to enable it to work with Azurite engine.
+		</PackageReleaseNotes>
+		<Version>8.0.0</Version>
+		<AssemblyVersion>8.0.0.0</AssemblyVersion>
+		<FileVersion>8.0.0.0</FileVersion>
+		<Authors>Sujay V. Sarma</Authors>
+		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>Sujay Sarma's Azure Tables Client SDK (Azure Storage Tables, Azure Development Storage, Azurite &amp; CosmosDB compatible)</Title>
+		<PackageIcon>logo.png</PackageIcon>
+		<IncludeSymbols>False</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove=".gitattributes" />
+		<None Remove=".gitignore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Data.Tables" Version="12.7.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
