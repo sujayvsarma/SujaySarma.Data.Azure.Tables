@@ -7,6 +7,8 @@ Library                      | Current version
 -----------------------------|------------------
 SujaySarma.Data.Azure.Tables | Version 8.0.0
 
+## NuGet Package
+https://www.nuget.org/packages/SujaySarma.Data.Azure.Tables
 
 ## About this library
 Microsoft keeps changing the library names, calling conventions and provided APIs, too frequently for developers to have a stable and 
