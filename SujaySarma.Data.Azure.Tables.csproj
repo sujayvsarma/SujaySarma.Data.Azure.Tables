@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -18,15 +18,11 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>azure,tables,azure storage tables,cosmos,cosmosdb,tables api,sujay,sujaysarma,sujay sarma</PackageTags>
 		<PackageReleaseNotes>
-			Version 8.0.0 - Bug fixes and Enhancements:
-			1. Performance optimizations
-			2. Retired the old StorageConnection and Command classes. Now the only way to use is via the AzureTablesContext class.
-			3. Added async support. Almost every method has an async equivalent. See readme for details.
-			4. bug fixed: Fixed problem with dev storage connection string to enable it to work with Azurite engine.
+			Version 8.5.0 - Added support for .NET Standard 2.1, .NET versions 5.0+
 		</PackageReleaseNotes>
-		<Version>8.0.0</Version>
-		<AssemblyVersion>8.0.0.0</AssemblyVersion>
-		<FileVersion>8.0.0.0</FileVersion>
+		<Version>8.5.0</Version>
+		<AssemblyVersion>8.5.0.0</AssemblyVersion>
+		<FileVersion>8.5.0.0</FileVersion>
 		<Authors>Sujay V. Sarma</Authors>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
@@ -51,15 +47,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Azure.Data.Tables" Version="12.7.1" />
+		<PackageReference Include="Azure.Data.Tables" Version="12.8.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="README.md">
+		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="logo.png">
+		<None Include="logo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

@@ -56,15 +56,8 @@ namespace SujaySarma.Data.Azure.Tables
         /// </summary>
         /// <param name="tableName">Name of table to check</param>
         public async Task<bool> TableExistsAsync(string tableName)
-        {
-            await foreach(TableItem item in _serviceClient.QueryAsync($"TableName eq '{tableName}'"))
-            {
-                // if we found 1 item, it is true!
-                return true;
-            }
+            => await _serviceClient.QueryAsync($"TableName eq '{tableName}'").AnyAsync();
 
-            return false;
-        }
 
         /// <summary>
         /// Clear all rows from a table -- works by dropping the table. Caller must ensure that 

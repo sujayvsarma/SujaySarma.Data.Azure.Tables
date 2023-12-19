@@ -5,7 +5,11 @@
 
 Library                      | Current version
 -----------------------------|------------------
-SujaySarma.Data.Azure.Tables | Version 8.0.0
+SujaySarma.Data.Azure.Tables | Version 8.5.0
+
+
+> Version 8.5.0 adds support for .NET 6.0+. Previously the library was available only for a single version of .NET (whatever was the latest at the time).
+
 
 
 ## About this library

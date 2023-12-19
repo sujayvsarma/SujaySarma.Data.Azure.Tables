@@ -56,10 +56,7 @@ namespace SujaySarma.Data.Azure.Tables
             foreach (TableEntity entity in entities)
             {
                 string partitionKey = entity.PartitionKey.ToUpperInvariant();
-                if (!transactionsByPartitionKey.ContainsKey(partitionKey))
-                {
-                    transactionsByPartitionKey.Add(partitionKey, new());
-                }
+                transactionsByPartitionKey.TryAdd(partitionKey, new());
 
                 if ((type == OperationType.Delete) && tableUsesSoftDelete && (!forDeletePerformHardDelete))
                 {
@@ -173,10 +170,7 @@ namespace SujaySarma.Data.Azure.Tables
             foreach (TableEntity entity in entities)
             {
                 string partitionKey = entity.PartitionKey.ToUpperInvariant();
-                if (!transactionsByPartitionKey.ContainsKey(partitionKey))
-                {
-                    transactionsByPartitionKey.Add(partitionKey, new());
-                }
+                transactionsByPartitionKey.TryAdd(partitionKey, new());
 
                 if ((type == OperationType.Delete) && tableUsesSoftDelete && (!forDeletePerformHardDelete))
                 {

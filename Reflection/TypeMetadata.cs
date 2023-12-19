@@ -227,7 +227,7 @@ namespace SujaySarma.Data.Azure.Tables.Reflection
 
                 foreach (object attribute in memberAttributes)
                 {
-                    if (attribute is PartitionKeyAttribute pk)
+                    if (attribute is PartitionKeyAttribute)
                     {
                         if (meta.PartitionKey != default)
                         {
@@ -236,7 +236,7 @@ namespace SujaySarma.Data.Azure.Tables.Reflection
                         meta.PartitionKey = member;
                     }
 
-                    if (attribute is RowKeyAttribute rk)
+                    if (attribute is RowKeyAttribute)
                     {
                         if (meta.RowKey != default)
                         {
@@ -245,7 +245,7 @@ namespace SujaySarma.Data.Azure.Tables.Reflection
                         meta.RowKey = member;
                     }
 
-                    if (attribute is ETagAttribute et)
+                    if (attribute is ETagAttribute)
                     {
                         if (meta.ETag != default)
                         {
@@ -254,7 +254,7 @@ namespace SujaySarma.Data.Azure.Tables.Reflection
                         meta.ETag = member;
                     }
 
-                    if ((!minimalSurface) && (attribute is TableColumnAttribute tc))
+                    if ((!minimalSurface) && (attribute is TableColumnAttribute))
                     {
                         meta.Members.Add(member);
                     }

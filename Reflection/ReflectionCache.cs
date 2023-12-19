@@ -16,10 +16,7 @@ namespace SujaySarma.Data.Azure.Tables.Reflection
         {
             lock (_lock)
             {
-                if (!_cache.ContainsKey(keyName))
-                {
-                    _cache.Add(keyName, info);
-                }
+                _cache.TryAdd(keyName, info);
             }
         }
 
