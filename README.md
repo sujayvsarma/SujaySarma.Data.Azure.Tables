@@ -11,6 +11,8 @@ SujaySarma.Data.Azure.Tables | Version 8.5.0
 > Version 8.5.0 adds support for .NET 6.0+. Previously the library was available only for a single version of .NET (whatever was the latest at the time).
 
 
+## NuGet Package
+https://www.nuget.org/packages/SujaySarma.Data.Azure.Tables
 
 ## About this library
 Microsoft keeps changing the library names, calling conventions and provided APIs, too frequently for developers to have a stable and 
